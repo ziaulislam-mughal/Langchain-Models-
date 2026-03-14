@@ -106,3 +106,4 @@ result = chain.invoke({"text": text})
 
 print("\n--- Final Result ---\n")
 print(result)
+chain.get_graph().print_ascii()
