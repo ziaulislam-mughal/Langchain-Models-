@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from langchain_huggingface import HuggingFaceEndpoint, ChatHuggingFace
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-from langchain.schema.runnable import Runnable
+from langchain.schema.runnable import RunnableSequence
 
 #chain used with ootput parser . using chain we can make a proper pipline . 
 
@@ -27,3 +27,13 @@ llm = HuggingFaceEndpoint(
 )
 
 model = ChatHuggingFace(llm=llm)
+
+prompt = PromptTemplate(
+    template = "what is {topic}",
+    input_variables = ['topic']
+)
+
+parser = StrOutputParser()
+
+chain = SequentialRunnable(prompt , model , parser)  
+chain.invoke({'topic': 'API'})
